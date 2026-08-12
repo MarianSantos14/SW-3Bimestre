@@ -1,23 +1,48 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?php
+include "config.php";
+include DBAPI;
+include HEADER_TEMPLATE;
+$db = open_database(); 
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h1>Dashboard</h1>
+<hr>
 
-    <title>CRUD</title>
+<?php if ($db): ?>
 
-    <!-- ? CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+	<div class="row">
+		<div class="col-xs-6 col-sm-3 col-md-2">
+			<a href="customers/add.php" class="btn btn-primary">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<i class="fa fa-plus fa-5x"></i>
+					</div>
+					<div class="col-xs-12 text-center">
+						<p>Novo Cliente</p>
+					</div>
+				</div>
+			</a>
+		</div>
 
-<body>
-    <!-- ? HTML -->
+		<div class="col-xs-6 col-sm-3 col-md-2">
+			<a href="customers" class="btn btn-default">
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<i class="fa fa-user fa-5x"></i>
+					</div>
+					<div class="col-xs-12 text-center">
+						<p>Clientes</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
 
-    <!-- ? JS -->
-    <script src="js/jquery-4.0.0.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-</body>
+<?php else: ?>
+	<div class="alert alert-danger" role="alert">
+		<p><strong>ERRO:</strong> Não foi possível Conectar ao Banco de Dados!</p>
+	</div>
 
-</html>
+<?php endif; ?>
+
+<?php include FOOTER_TEMPLATE; ?>
