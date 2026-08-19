@@ -10,39 +10,36 @@ $db = open_database();
 
 <?php if ($db): ?>
 
-	<div class="row">
+	<div class="row gap-3">
 		<div class="col-xs-6 col-sm-3 col-md-2">
-			<a href="customers/add.php" class="btn btn-primary">
-				<div class="row">
-					<div class="col-xs-12 text-center">
-						<i class="fa fa-plus fa-5x"></i>
+			<a href="customers/add.php" class="btn btn-secondary">
+				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+					<div class="text-center">
+						<i class="fa-solid fa-user-plus fa-5x"></i>
 					</div>
-					<div class="col-xs-12 text-center">
-						<p>Novo Cliente</p>
-					</div>
+					<div class="text-center">Novo Cliente</div>
 				</div>
 			</a>
 		</div>
 
 		<div class="col-xs-6 col-sm-3 col-md-2">
-			<a href="customers" class="btn btn-default">
-				<div class="row">
-					<div class="col-xs-12 text-center">
-						<i class="fa fa-user fa-5x"></i>
+			<a href="customers" class="btn btn-light text-white">
+				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+					<div class="text-center">
+						<i class="fa fa-users fa-5x"></i>
 					</div>
-					<div class="col-xs-12 text-center">
-						<p>Clientes</p>
-					</div>
+					<div class="text-center">Clientes</div>
 				</div>
 			</a>
 		</div>
 	</div>
-
 <?php else: ?>
 	<div class="alert alert-danger" role="alert">
 		<p><strong>ERRO:</strong> Não foi possível Conectar ao Banco de Dados!</p>
 	</div>
-
 <?php endif; ?>
 
 <?php include FOOTER_TEMPLATE; ?>
+
+
+

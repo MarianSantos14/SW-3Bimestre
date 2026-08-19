@@ -17,14 +17,25 @@
             padding-top: 70px;
             padding-bottom: 20px;
         }
+        .btn-light{
+            background-color: #ccc;
+            border-color: #ccc;
+            color: #fff;
+        }
+        .btn-light:houver{
+            background-color: #aaa;
+            border-color: #aaa;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar container navbar-expand-lg bg-body-tertiary fixed-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?php echo BASEURL; ?>">CRUD</a>
+            <a class="navbar-brand" href="<?php echo BASEURL; ?>"> <i class="fa-solid fa-house"></i>
+CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="navbarproj" aria-controls="navbarproj" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -32,20 +43,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarproj">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href=" <?php echo BASEURL; ?>"> Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Dropdown
+                            <i class="fa-solid fa-users"></i>
+                            Clientes 
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>customers">Gerenciar Clientes</a></li>
-                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>customers/add.php">Novo Cliente</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>customers"> <i class="fa-solid fa-users"></i>Gerenciar Clientes</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>customers/add.php"><i class="fa-solid fa-user-plus"></i>
+Novo Cliente</a></li>
                         </ul>
                     </li>
                 </ul>
