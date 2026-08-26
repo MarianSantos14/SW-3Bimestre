@@ -1,0 +1,20 @@
+.bg-pink1 {
+    background: #ff69b4;
+}
+.bg-pink1:hover {
+    background: #ff69b4d2;
+}
+
+.bg-pink2 {
+    background: #c33b80;
+}
+.bg-pink2:hover {
+    background: #c33b80d2;
+}
+
+.bg-pink3 {
+    background: #89004f;
+}
+.bg-pink3:hover {
+    background:#89004fd2;
+}

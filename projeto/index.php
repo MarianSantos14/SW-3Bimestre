@@ -6,12 +6,13 @@ $db = open_database();
 ?>
 
 <h1>Dashboard</h1>
+
 <hr>
 
 <?php if ($db): ?>
 
-	<div class="row gap-3">
-		<div class="col-xs-6 col-sm-3 col-md-2">
+	<div class="d-flex align-items-center justify-content-start gap-3">
+		<div>
 			<a href="customers/add.php" class="btn btn-secondary">
 				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
 					<div class="text-center">
@@ -22,7 +23,7 @@ $db = open_database();
 			</a>
 		</div>
 
-		<div class="col-xs-6 col-sm-3 col-md-2">
+		<div>
 			<a href="customers" class="btn btn-light text-white">
 				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
 					<div class="text-center">
@@ -40,6 +41,3 @@ $db = open_database();
 <?php endif; ?>
 
 <?php include FOOTER_TEMPLATE; ?>
-
-
-
