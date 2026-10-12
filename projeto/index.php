@@ -5,18 +5,18 @@ include HEADER_TEMPLATE;
 $db = open_database(); 
 ?>
 
-<h1>Dashboard</h1>
+<h1 class="colordeco">Dashboard</h1>
 
 <hr>
 
 <?php if ($db): ?>
 
-	<div class="d-flex align-items-center justify-content-start gap-3">
+	<div class="d-flex align-items-center botoes-clientes justify-content-start  gap-3">
 		<div>
-			<a href="customers/add.php" class="btn btn-secondary">
+			<a href="customers/add.php" class="btn bg-pink2">
 				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
 					<div class="text-center">
-						<i class="fa-solid fa-user-plus fa-5x"></i>
+						<i class="fa-solid fa-user-plus fa-7x"></i>
 					</div>
 					<div class="text-center">Novo Cliente</div>
 				</div>
@@ -24,10 +24,10 @@ $db = open_database();
 		</div>
 
 		<div>
-			<a href="customers" class="btn btn-light text-white">
+			<a href="customers" class="btn bg-pink3">
 				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
 					<div class="text-center">
-						<i class="fa fa-users fa-5x"></i>
+						<i class="fa fa-users fa-7x"></i>
 					</div>
 					<div class="text-center">Clientes</div>
 				</div>

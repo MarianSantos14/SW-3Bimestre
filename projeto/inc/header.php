@@ -34,7 +34,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-1" href="<?= BASEURL; ?>"><i class="fa-solid fa-house"></i>CRUD</a>
+            <a class="navbar-brand d-flex align-items-center gap-1 colordeco1" href="<?= BASEURL; ?>"><i class="fa-solid fa-house"></i>CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarproj" aria-controls="navbarproj" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,4 +58,4 @@
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container container-top">
