@@ -53,6 +53,28 @@
                             <li><a class="dropdown-item" href="<?php echo BASEURL; ?>customers/add.php"><i class="fa-solid fa-user-plus me-2"></i>Novo Cliente</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-users"></i>
+                            Livros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>livros"><i class="fa-solid fa-users me-2"></i>Gerenciar Clientes</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>livros/add.php"><i class="fa-solid fa-user-plus me-2"></i>Novo Cliente</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-user-gear"></i>
+                            Usuários
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>usuarios"><i class="fa-solid fa-user-gear me-2"></i>Gerenciar Usuários</a></li>
+                            <li><a class="dropdown-item" href="<?php echo BASEURL; ?>usuarios/add.php"><i class="fa-solid fa-user-tie me-2"></i>Novo Usuários</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -33,7 +33,60 @@ $db = open_database();
 				</div>
 			</a>
 		</div>
-	</div>
+
+        <div>
+            <a href="produtos/add.php" class="btn bg-pink2">
+                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+                    <div class=" text-center">
+                        <i class="fa-solid fa-box-open fa-6x"></i>
+                    </div>
+                    <div class="text-center">
+                        <p>Novo Produto</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="produtos" class="btn bg-pink3">
+                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+                    <div class=" text-center">
+                        <i class="fa-solid fa-boxes fa-6x"></i>
+                    </div>
+                    <div class="text-center">
+                        <p>Produtos</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+		<div>
+            <a href="produtos/add.php" class="btn bg-pink2">
+                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+                    <div class=" text-center">
+                        <i class="fa-solid fa-user-gear fa-6x"></i>
+                    </div>
+                    <div class="text-center">
+                        <p>Novo Produto</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <a href="produtos" class="btn bg-pink3">
+                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
+                    <div class=" text-center">
+                        <i class="fa-solid fa-user-tie fa-6x"></i>
+                    </div>
+                    <div class="text-center">
+                        <p>Produtos</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
 <?php else: ?>
 	<div class="alert alert-danger" role="alert">
 		<p><strong>ERRO:</strong> Não foi possível Conectar ao Banco de Dados!</p>
