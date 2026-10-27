@@ -97,7 +97,7 @@ add();
         <div class="col-md-5 mb-3">
             <label for="address" class="form-label">Endereço</label>
             <input type="text" class="form-control" id="address" name="customer[address]" required>
-            <div id="validationServerAddressInvalid" class="invalid-feedback">Please enter a mailing address</div>
+            <div id="validationServerAddressInvalid" class="invalid-feedback">Por favor, coloque um email válido</div>
 
         </div>
 

@@ -61,12 +61,16 @@ include HEADER_TEMPLATE;
 </header>
 
 <?php if (!empty($_SESSION['message'])): ?>
-    <div class="alert alert-<?= $_SESSION['type']; ?> alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-        <?= $_SESSION['message']; ?>
+    <div class="alert alert-<?= htmlspecialchars($_SESSION['type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible"
+        role="alert">
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+
+        <?= htmlspecialchars($_SESSION['message'], ENT_QUOTES, 'UTF-8'); ?>
+
     </div>
-<?php // clear_messages(); ?>
+    <?php  clear_messages(); ?>
+
 <?php endif; ?>
 
 <hr>

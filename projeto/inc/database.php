@@ -158,26 +158,57 @@ function update($table = null, $id = 0, $data = null)
 /**
  *  Remove uma linha de uma tabela pelo ID do registro
  */
-function remove( $table = null, $id = null ) {
+function remove($table = null, $id = null)
+{
 
-  $database = open_database();
-	
-  try {
-    if ($id) {
+    $database = open_database();
 
-      $sql = "DELETE FROM $table WHERE id =  $id";
-      $result = $database->query($sql);
+    try {
+        if ($id) {
 
-      if ($result = $database->query($sql)) {   	
-        $_SESSION['message'] = "Registro Removido com Sucesso.";
-        $_SESSION['type'] = "success";
-      }
+            $sql = "DELETE FROM $table WHERE id =  $id";
+            $result = $database->query($sql);
+
+            if ($result = $database->query($sql)) {
+                $_SESSION['message'] = "Registro Removido com Sucesso.";
+                $_SESSION['type'] = "success";
+            }
+        }
+    } catch (Exception $e) {
+
+        $_SESSION['message'] = "Aconteceu um erro:<br>{$e->GetMessage()}";
+        $_SESSION['type'] = 'danger';
     }
-  } catch (Exception $e) { 
 
-    $_SESSION['message'] = "Aconteceu um erro:<br>{$e->GetMessage()}";
-    $_SESSION['type'] = 'danger';
-  }
+    close_database($database);
+}
 
-  close_database($database);
+/**
+ * Pesquisa registros pelo parametro $p que foi passado
+ */
+function filter($table = null, $p = null)
+{
+
+    $database = open_database();
+    $found = null;
+
+    try {
+        if ($p) {
+            $sql = "SELECT * FROM " . $table . " WHERE " . $p;
+            $result = $database->query($sql);
+            if ($result->num_rows > 0) {
+                $found = array();
+                while ($row = $result->fetch_assoc()) {
+                    array_push($found, $row);
+                }
+            } else {
+                throw new Exception("Não foram encontrados registros de dados!");
+            }
+        }
+    } catch (Exception $e) {
+        $_SESSION['message'] = "Ocorreu um erro:" . $e->GetMessage();
+        $_SESSION['type'] = "danger";
+    }
+    close_database($database);
+    return $found;
 }

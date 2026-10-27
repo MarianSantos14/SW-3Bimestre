@@ -7,20 +7,8 @@ include(DBAPI);
 $users = null;
 $user = null;
 
-
-
 /**
- *  Visualização de um Cliente
- */
-function view($id = null)
-{
-  global $user;
-  $user = find('usuario', $id);
-}
-
-
-/**
- *  Listagem de Clientes
+ * Listagem de Usuários
  */
 function index()
 {
@@ -31,8 +19,8 @@ function index()
     $search = trim($_GET['search'] ?? '');
 
     if ($search !== '') {
-        $sql = "SELECT * FROM users
-                WHERE name LIKE ?
+        $sql = "SELECT * FROM usuarios
+                WHERE nome LIKE ?
                 ORDER BY id DESC";
 
         $stmt = $database->prepare($sql);
@@ -51,82 +39,106 @@ function index()
     close_database($database);
 }
 
-
-
 /**
- *  Cadastro de Clientes
+ * Visualização de um Usuário
  */
-
-function add()
+function view($id = null)
 {
-  if (!empty($_POST['usuario'])) { // <<== nome do vetor html
+    global $user;
 
-    // $today = new DateTime('now', new DateTimeZone("-0300"));
-
-    $user = $_POST['usuario'];
-    // $customer['modified'] = $customer['created'] =
-    //   $today->format("Y-m-d H:i:s");
-
-    // Foto opcional
-    $user['img'] = null;
-
-    if (
-      isset($_FILES['img']) &&
-      $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE
-    ) {
-      if ($_FILES['img']['error'] !== UPLOAD_ERR_OK) {
-        die('Erro ao enviar a foto.');
-      }
-
-      if ($_FILES['img']['size'] > 5 * 1024 * 1024) {
-        die('A foto deve ter no máximo 5 MB.');
-      }
-
-      $finfo = new finfo(FILEINFO_MIME_TYPE);
-      $mime = $finfo->file($_FILES['img']['tmp_name']);
-
-      $tiposPermitidos = [
-        'image/jpeg' => 'jpg',
-        'image/png'  => 'png',
-        'image/webp' => 'webp'
-      ];
-
-      if (!isset($tiposPermitidos[$mime])) {
-        die('Envie uma imagem JPG, PNG ou WEBP.');
-      }
-
-      $pasta = __DIR__ . '/../uploads/users/';
-
-      if (!is_dir($pasta)) {
-        mkdir($pasta, 0755, true);
-      }
-
-      $nomeArquivo = bin2hex(random_bytes(16))
-        . '.' . $tiposPermitidos[$mime];
-
-      if (!move_uploaded_file(
-        $_FILES['img']['tmp_name'],
-        $pasta . $nomeArquivo
-      )) {
-        die('Não foi possível salvar a foto.');
-      }
-
-      $user['img'] = 'uploads/users/' . $nomeArquivo;
-    }
-
-    save('usuarios', $user);
-    header('location: index.php');
-    exit;
-  }
+    $user = find('usuarios', $id);
 }
 
+/**
+ * Cadastro de Usuários
+ */
+function add()
+{
+    if (!empty($_POST['user'])) {
+
+        $user = $_POST['user'];
+
+        // Campos permitidos pela tabela usuarios.
+        $dados = [
+            'nome' => trim($user['nome'] ?? ''),
+            'user' => trim($user['user'] ?? ''),
+            'password' => $user['password'] ?? '',
+            'foto' => null
+        ];
+
+        // Validação dos campos obrigatórios.
+        if (
+            $dados['nome'] === '' ||
+            $dados['user'] === '' ||
+            $dados['password'] === ''
+        ) {
+            die('Preencha todos os campos obrigatórios.');
+        }
+
+        // Cria o hash da senha antes de salvar.
+        $dados['password'] = password_hash(
+            $dados['password'],
+            PASSWORD_DEFAULT
+        );
+
+        // Foto opcional.
+        if (
+            isset($_FILES['img']) &&
+            $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE
+        ) {
+            if ($_FILES['img']['error'] !== UPLOAD_ERR_OK) {
+                die('Erro ao enviar a foto.');
+            }
+
+            if ($_FILES['img']['size'] > 5 * 1024 * 1024) {
+                die('A foto deve ter no máximo 5 MB.');
+            }
+
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->file($_FILES['img']['tmp_name']);
+
+            $tiposPermitidos = [
+                'image/jpeg' => 'jpg',
+                'image/png'  => 'png',
+                'image/webp' => 'webp'
+            ];
+
+            if (!isset($tiposPermitidos[$mime])) {
+                die('Envie uma imagem JPG, PNG ou WEBP.');
+            }
+
+            $pasta = __DIR__ . '/../uploads/usuarios/';
+
+            if (!is_dir($pasta)) {
+                mkdir($pasta, 0755, true);
+            }
+
+            $nomeArquivo = bin2hex(random_bytes(16))
+                . '.' . $tiposPermitidos[$mime];
+
+            if (!move_uploaded_file(
+                $_FILES['img']['tmp_name'],
+                $pasta . $nomeArquivo
+            )) {
+                die('Não foi possível salvar a foto.');
+            }
+
+            $dados['foto'] = 'uploads/usuarios/' . $nomeArquivo;
+        }
+
+        save('usuarios', $dados);
+
+        header('location: index.php');
+        exit;
+    }
+}
 
 /**
- *	Atualizacao/Edicao de Cliente
+ * Atualização/Edição de Usuário
  */
 function edit()
 {
-    global $customer;
+    global $user;
 
     if (!isset($_GET['id'])) {
         header('location: index.php');
@@ -134,29 +146,43 @@ function edit()
     }
 
     $id = (int) $_GET['id'];
-    $userAtual = find('user', $id);
+    $userAtual = find('usuarios', $id);
 
     if (!$userAtual) {
         header('location: index.php');
         exit;
     }
 
-    $customer = $customerAtual;
+    $user = $userAtual;
 
-    if (!isset($_POST['customer'])) {
+    if (!isset($_POST['user'])) {
         return;
     }
 
-    $user = $_POST['customer'];
-    $user['modified'] = date('Y-m-d H:i:s');
+    $form = $_POST['user'];
 
-    // Mantém a foto atual caso nenhuma nova seja enviada.
-    $user['img'] = $userAtual['img'];
+    $dados = [
+        'nome' => trim($form['nome'] ?? ''),
+        'user' => trim($form['user'] ?? ''),
+        'foto' => $userAtual['foto']
+    ];
 
-    $fotoAntiga = $userAtual['img'];
+    if ($dados['nome'] === '' || $dados['user'] === '') {
+        die('Preencha o nome e o nome de usuário.');
+    }
+
+    // Só altera a senha se uma nova senha for informada.
+    if (!empty($form['password'])) {
+        $dados['password'] = password_hash(
+            $form['password'],
+            PASSWORD_DEFAULT
+        );
+    }
+
+    $fotoAntiga = $userAtual['foto'];
     $novaFoto = null;
 
-    // Verifica se foi enviada uma nova foto.
+    // Verifica se uma nova foto foi enviada.
     if (
         isset($_FILES['img']) &&
         $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE
@@ -182,7 +208,7 @@ function edit()
             die('Envie uma imagem JPG, PNG ou WEBP.');
         }
 
-        $pasta = __DIR__ . '/../uploads/users/';
+        $pasta = __DIR__ . '/../uploads/usuarios/';
 
         if (!is_dir($pasta)) {
             mkdir($pasta, 0755, true);
@@ -198,19 +224,19 @@ function edit()
             die('Não foi possível salvar a nova foto.');
         }
 
-        $novaFoto = 'uploads/users/' . $nomeArquivo;
-        $user['img'] = $novaFoto;
+        $novaFoto = 'uploads/usuarios/' . $nomeArquivo;
+        $dados['foto'] = $novaFoto;
     }
 
-    // Atualiza os dados e o caminho da foto no banco.
-    update('usuarios', $id, $user);
+    // Atualiza somente os campos existentes na tabela.
+    update('usuarios', $id, $dados);
 
-    // Apaga a foto antiga somente quando uma nova foi enviada.
+    // Exclui a foto antiga se uma nova foi enviada.
     if ($novaFoto !== null && !empty($fotoAntiga)) {
         $caminhoAntigo = __DIR__ . '/../' . ltrim($fotoAntiga, '/');
 
         if (
-            strpos($fotoAntiga, 'uploads/users/') === 0 &&
+            strpos($fotoAntiga, 'uploads/usuarios/') === 0 &&
             is_file($caminhoAntigo)
         ) {
             unlink($caminhoAntigo);
@@ -221,14 +247,20 @@ function edit()
     exit;
 }
 
-
 /**
- *  Exclusão de um Cliente
+ * Exclusão de um Usuário
  */
-function delete($id = null) {
+function delete($id = null)
+{
+    global $user;
 
-  global $user;
-  $user = remove("users", $id);
+    $user = remove('usuarios', $id);
 
-  header("location: index.php");
+    header('location: index.php');
+    exit;
+}
+
+function clear_messages() {
+$_SESSION['message'] = null;
+$_SESSION['type'] = null;
 }

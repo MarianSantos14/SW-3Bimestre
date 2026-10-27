@@ -2,7 +2,8 @@
 include "config.php";
 include DBAPI;
 include HEADER_TEMPLATE;
-$db = open_database(); 
+if (!isset($_SESSION)) session_start();
+$db = open_database();
 ?>
 
 <h1 class="colordeco">Dashboard</h1>
@@ -11,86 +12,76 @@ $db = open_database();
 
 <?php if ($db): ?>
 
-	<div class="d-flex align-items-center botoes-clientes justify-content-start  gap-3">
-		<div>
-			<a href="customers/add.php" class="btn bg-pink2">
-				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-					<div class="text-center">
-						<i class="fa-solid fa-user-plus fa-7x"></i>
-					</div>
-					<div class="text-center">Novo Cliente</div>
-				</div>
-			</a>
-		</div>
+    <div class="row g-3 justify-content-center">
 
-		<div>
-			<a href="customers" class="btn bg-pink3">
-				<div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-					<div class="text-center">
-						<i class="fa fa-users fa-7x"></i>
-					</div>
-					<div class="text-center">Clientes</div>
-				</div>
-			</a>
-		</div>
-
-        <div>
-            <a href="produtos/add.php" class="btn bg-pink2">
-                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-                    <div class=" text-center">
-                        <i class="fa-solid fa-box-open fa-6x"></i>
-                    </div>
-                    <div class="text-center">
-                        <p>Novo Produto</p>
-                    </div>
+        <!-- Novo Cliente -->
+        <div class="col-6 col-lg-2">
+            <a href="customers/add.php" class="btn bg-pink2 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-user-plus fa-3x fa-lg-4x"></i>
+                    <span>Novo Cliente</span>
                 </div>
             </a>
         </div>
 
-        <div>
-            <a href="produtos" class="btn bg-pink3">
-                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-                    <div class=" text-center">
-                        <i class="fa-solid fa-boxes fa-6x"></i>
-                    </div>
-                    <div class="text-center">
-                        <p>Produtos</p>
-                    </div>
+        <!-- Clientes -->
+        <div class="col-6 col-lg-2">
+            <a href="customers" class="btn bg-pink3 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-users fa-3x"></i>
+                    <span>Clientes</span>
                 </div>
             </a>
         </div>
 
-		<div>
-            <a href="produtos/add.php" class="btn bg-pink2">
-                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-                    <div class=" text-center">
-                        <i class="fa-solid fa-user-gear fa-6x"></i>
-                    </div>
-                    <div class="text-center">
-                        <p>Novo Produto</p>
-                    </div>
+        <!-- Novo Produto -->
+        <div class="col-6 col-lg-2">
+            <a href="produtos/add.php" class="btn bg-pink2 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-plus fa-3x"></i>
+                    <span>Novo Livro</span>
                 </div>
             </a>
         </div>
 
-        <div>
-            <a href="produtos" class="btn bg-pink3">
-                <div class="d-flex align-content-center justify-content-center flex-column gap-1 p-2">
-                    <div class=" text-center">
-                        <i class="fa-solid fa-user-tie fa-6x"></i>
-                    </div>
-                    <div class="text-center">
-                        <p>Produtos</p>
-                    </div>
+        <!-- Produtos -->
+        <div class="col-6 col-lg-2">
+            <a href="produtos" class="btn bg-pink3 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-book fa-3x"></i>
+                    <span>Livros</span>
                 </div>
             </a>
         </div>
+
+        <!-- Novo Usuário -->
+        <div class="col-6 col-lg-2">
+            <a href="usuarios/add.php" class="btn bg-pink2 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-user-gear fa-3x"></i>
+                    <span>Novo Usuário</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Usuários -->
+        <div class="col-6 col-lg-2">
+            <a href="usuarios" class="btn bg-pink3 w-100 h-100">
+                <div class="d-flex align-items-center justify-content-center flex-column gap-1 p-2">
+                    <i class="fa-solid fa-user-tie fa-3x"></i>
+                    <span>Usuários</span>
+                </div>
+            </a>
+        </div>
+
     </div>
 
 <?php else: ?>
-	<div class="alert alert-danger" role="alert">
-		<p><strong>ERRO:</strong> Não foi possível Conectar ao Banco de Dados!</p>
-	</div>
+
+    <div class="alert alert-danger" role="alert">
+        <p><strong>ERRO:</strong> Não foi possível conectar ao banco de dados!</p>
+    </div>
+
 <?php endif; ?>
 
 <?php include FOOTER_TEMPLATE; ?>

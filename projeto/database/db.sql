@@ -10,8 +10,9 @@ USE `wda_crud`;
 -- Estrutura da tabela `customers`
 --
 
+s
 CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `cpf_cnpj` varchar(15) NOT NULL,
   `birthdate` datetime NOT NULL,
@@ -24,7 +25,9 @@ CREATE TABLE `customers` (
   `mobile` varchar(13) NOT NULL,
   `ie` varchar(15) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL
+  `modified` datetime NOT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -46,3 +49,18 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+
+
+  -- Script para criar e cadastrar na tabela usuários (execute no banco do projeto):
+CREATE TABLE usuarios(
+    id int AUTO_INCREMENT not null PRIMARY KEY,
+    nome varchar(50) not null,
+    user varchar(50) not null,
+    password varchar(100) not null,
+    foto varchar(225)
+);
+INSERT INTO usuarios (nome, user, password) 
+VALUES ('Zé Lele','zelele','5243897562837456982'),
+('Mary Zica','mazi','786098767869'),
+('Fugiru Nakombi','fugina','623485634753234');
